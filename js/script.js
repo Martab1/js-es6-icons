@@ -127,8 +127,25 @@ const colors = [
 
 // 2. stampare icone colorate
 const coloredIcons = colorIcons(icons,colors);  // salvo in una variabile l'array che riporta fuori la funzione
-console.log(coloredIcons);
-printIcons(coloredIcons,container)
+// console.log(coloredIcons);
+printIcons(coloredIcons,container);
+
+// 3. filtraggio icone
+// A. generazione selezione opzioni
+const select = document.querySelector("#type");
+// riporto i tipi univoci di icone 
+const types = getType(coloredIcons);
+genOption(types,select); // types (quanti), select (dove inserire)
+
+
+
+
+// B. effettuare il filtraggio al cambio di opzione 
+
+
+
+
+
 
 
 
@@ -175,8 +192,8 @@ printIcons(coloredIcons,container)
 
   function colorIcons(icons,colors){
     const types = getType (icons);
-    console.log(types);
-    console.log(colors);
+    // console.log(types);
+    // console.log(colors);
 
     // assegnare un colore per tipo a ogni icona
     const coloredIcons = icons.map( (icon) =>{
@@ -212,4 +229,23 @@ printIcons(coloredIcons,container)
  
     // ritorno del valore da utilizzare a linea 170
     return types;
+  }
+
+
+
+
+  /* 
+  * GENERAZIONE OPZIONI PER FILTRAGGIO
+  */
+
+  function genOption(types,select){
+      // gen opzioni
+      let options = "";
+      types.forEach( (type) => {
+          options += `<option value="${type}">${type}</option>`
+
+      });
+
+      select.innerHTML += options;
+
   }
