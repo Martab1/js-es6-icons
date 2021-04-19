@@ -110,6 +110,13 @@ const icons = [
 ];
 
 
+// colors
+const colors = [ 
+    "#c3f0ca",
+    "#ff8ba7",
+    "#33272a",
+];
+
 // Icons container
  const container = document.querySelector(".icons");
  
@@ -119,9 +126,9 @@ const icons = [
  printIcons(icons,container);  // print: che cosa, dove 
 
 // 2. stampare icone colorate
-const coloredIcons = colorIcons(icons,);  // salvo in una variabile l'array che riporta fuori la funzione
-
-
+const coloredIcons = colorIcons(icons,colors);  // salvo in una variabile l'array che riporta fuori la funzione
+console.log(coloredIcons);
+printIcons(coloredIcons,container)
 
 
 
@@ -144,12 +151,12 @@ const coloredIcons = colorIcons(icons,);  // salvo in una variabile l'array che 
     icons.forEach((icon) => {
 
         // destrutturazione -- per creare più variabili in un una sola volta così da creare interpolazioni più rapide nel template literal
-        const {family,prefix,name} = icon;
+        const {family,prefix,name,color} = icon;
 
         html += 
         `<div class="icon">
             <i class="${family} ${prefix}${name}" 
-              style="color: #333"></i>
+              style="color: ${color}"></i>
             <div class="title">${name}</div>
          </div>`;
 
@@ -158,4 +165,51 @@ const coloredIcons = colorIcons(icons,);  // salvo in una variabile l'array che 
     // aggiunta icone al container
     container.innerHTML = html;
 
+  }
+
+
+
+  /* 
+   * RETURN ICONE COLORATE PER TIPO
+  */
+
+  function colorIcons(icons,colors){
+    const types = getType (icons);
+    console.log(types);
+    console.log(colors);
+
+    // assegnare un colore per tipo a ogni icona
+    const coloredIcons = icons.map( (icon) =>{
+        const idexType = types.indexOf(icon.type);
+
+        return {
+            ...icon,
+            color:colors[idexType],
+
+        }
+
+    });
+     return coloredIcons;
+  }
+
+
+  /* 
+  * OTTENERE I TIPI DI ICONE ( SENZA DUPLICATI ) 
+  */
+
+  function getType (icons){
+    // creo array vuoto 
+    const types = [];
+
+    //itero sulle icone
+    icons.forEach( (icon) => {
+        // se i type dell'icona non è in types
+        if(! types.includes(icon.type)){
+            // lo inserico
+            types.push(icon.type)
+        }
+    });
+ 
+    // ritorno del valore da utilizzare a linea 170
+    return types;
   }
