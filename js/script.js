@@ -108,3 +108,54 @@ const icons = [
         family: 'fas',
     },
 ];
+
+
+// Icons container
+ const container = document.querySelector(".icons");
+ 
+
+ // 1. stampare le icone a schermo
+ //evocazione funzione 
+ printIcons(icons,container);  // print: che cosa, dove 
+
+// 2. stampare icone colorate
+const coloredIcons = colorIcons(icons,);  // salvo in una variabile l'array che riporta fuori la funzione
+
+
+
+
+
+
+
+
+ /**************************************************** 
+  * FUNCTIONS
+  ****************************************************/ 
+
+
+   /* 
+   STAMPA ICONE A SCHERMO
+   */
+
+  function printIcons(icons,container){
+
+    // genero il markup icone: creo variabile di stringa x poi iniettarla nel dom
+    let html = "";
+    icons.forEach((icon) => {
+
+        // destrutturazione -- per creare più variabili in un una sola volta così da creare interpolazioni più rapide nel template literal
+        const {family,prefix,name} = icon;
+
+        html += 
+        `<div class="icon">
+            <i class="${family} ${prefix}${name}" 
+              style="color: #333"></i>
+            <div class="title">${name}</div>
+         </div>`;
+
+    });
+
+    // aggiunta icone al container
+    container.innerHTML = html;
+
+  }
