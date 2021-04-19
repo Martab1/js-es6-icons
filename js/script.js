@@ -117,30 +117,39 @@ const colors = [
     "#33272a",
 ];
 
-// Icons container
+// ref Icons container
  const container = document.querySelector(".icons");
  
-
- // 1. stampare le icone a schermo
- //evocazione funzione 
+// 1. stampare le icone a schermo
  printIcons(icons,container);  // print: che cosa, dove 
+
+
 
 // 2. stampare icone colorate
 const coloredIcons = colorIcons(icons,colors);  // salvo in una variabile l'array che riporta fuori la funzione
-// console.log(coloredIcons);
 printIcons(coloredIcons,container);
+
+
 
 // 3. filtraggio icone
 // A. generazione selezione opzioni
+
+// ref 
 const select = document.querySelector("#type");
 // riporto i tipi univoci di icone 
 const types = getType(coloredIcons);
 genOption(types,select); // types (quanti), select (dove inserire)
 
+// B. effettuare il filtraggio al cambio di opzione  (change)
 
-
-
-// B. effettuare il filtraggio al cambio di opzione 
+select.addEventListener("change", () => {
+     // devo leggere il valore della selezione (dell'input)
+    const selected = select.value;
+    
+    // array con icons filtrate
+    const filteredIcons = filterIcons(coloredIcons,selected);
+    printIcons(filteredIcons,container);
+});
 
 
 
@@ -247,5 +256,26 @@ genOption(types,select); // types (quanti), select (dove inserire)
       });
 
       select.innerHTML += options;
+
+  }
+
+
+  /* 
+  * ICONE FILTRATE
+  */
+
+  function filterIcons(coloredIcons,selected){
+
+    if (selected === "all"){
+        return icons;
+
+    }
+
+    const filtered = coloredIcons.filter( (icon) => {
+          return icon.type === selected;  // return genera array 
+
+      });
+
+    return filtered;  // return porta fuori i dati  linea 147
 
   }
